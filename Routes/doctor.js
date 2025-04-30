@@ -1,28 +1,38 @@
 import express from "express";
-import {
-  updateDoctor,
-  deleteDoctor,
-  getSingleDoctor,
-  getAllDoctor,
-  getDoctorProfile,
-} from "../Controllers/doctorController.js";
+// import {
+// updateDoctor,
+// deleteDoctor,
+// getSingleDoctor,
+// getAllDoctor
+// getDoctorProfile,
+// } from "../Controllers/doctorController.js";
 
-import { authenticate, restrict } from "../auth/verifyToken.js";
+// import { authenticate, restrict } from "../auth/verifyToken.js";
 
 import reviewRouter from "./review.js";
-
+import Doctor from "../models/DoctorSchema.js";
 const router = express.Router();
 
+router.get("/", async (req, res) => {
+  try {
+    const doctors = await Doctor.find();
+    res.status(200).json(doctors);
+  } catch (err) {
+    console.error("Error fetching doctors:", err.message);
+    res.status(500).json({ message: "Failed to fetch doctors." });
+  }
+});
+
 //nested route
-router.use("/:doctorId/reviews", reviewRouter);
+// router.use("/:doctorId/reviews", reviewRouter);
 
-router.get("/:id", getSingleDoctor);
-router.get("/", getAllDoctor);
+// router.get("/:id", getSingleDoctor);
+// router.get("/", getAllDoctor);
 
-router.put("/:id", authenticate, updateDoctor);
+// router.put("/:id", updateDoctor);
 
-router.delete("/:id", authenticate, deleteDoctor);
+// router.delete("/:id", deleteDoctor);
 
-router.get(`/profile/me`, authenticate, restrict(["doctor"]), getDoctorProfile);
+// router.get(`/profile/me`, restrict(["doctor"]), getDoctorProfile);
 
 export default router;
