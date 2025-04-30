@@ -40,26 +40,7 @@
 //     });
 //   }
 // };
-// export const getSingleDoctor = async (req, res) => {
-//   const id = req.params.id;
 
-//   try {
-//     const doctor = await Doctor.findById(id)
-//       .populate("reviews")
-//       .select("-password");
-
-//     res.status(200).json({
-//       success: true,
-//       message: "Doctor founded",
-//       data: doctor,
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       success: false,
-//       message: "No doctor found",
-//     });
-//   }
-// };
 // export const getAllDoctor = async (req, res) => {
 //   try {
 //     //when search doctor
