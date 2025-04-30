@@ -30,6 +30,7 @@ const server = http.createServer(app);
 // Middleware
 const corsOptions = {
   origin: true,
+  credentials: true
 };
 
 app.use(express.json());
@@ -157,9 +158,9 @@ io.on("connection", (socket) => {
           setTimeout(() => {
             if (meetings.has(meetingId) && meetings.get(meetingId).participants.length === 0) {
               meetings.delete(meetingId);
-              console.log(`Meeting ${meetingId} removed due to inactivity`);
+              console.log(`Meeting ${meetingId} removed due to 2 days of inactivity`);
             }
-          }, 5 * 60 * 1000); // 5 minutes
+          }, 24 * 60 * 60 * 1000); // 1 days
         }
       }
     });
