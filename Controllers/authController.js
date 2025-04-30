@@ -120,3 +120,13 @@ export const login = async (req, res) => {
     res.status(500).json({ status: false, message: "Failed to login" });
   }
 };
+
+export const logout = async (req, res) => {
+  try {
+    res.status(200).json({ status: true, message: "Successfully logged out" });
+  } catch (error) {
+    console.error("Logout Error:", error);
+    res.status(500).json({ status: false, message: "Failed to logout" });
+  }
+};
+

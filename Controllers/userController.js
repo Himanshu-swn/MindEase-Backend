@@ -1,5 +1,5 @@
 import User from "../models/UserSchema.js";
-import Booking from "../models/BookingSchema.js";
+import Booking from "../models/Booking.js";
 import Doctor from "../models/DoctorSchema.js";
 //models
 export const updateUser = async (req, res) => {

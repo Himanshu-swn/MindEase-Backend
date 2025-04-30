@@ -1,41 +1,67 @@
-# Medical Center Backend
+MindEase Backend
+Introduction
+Welcome to the MindEase Backend repository! This project powers the backend of MindEase, a mental wellness and healthcare platform designed to connect patients with doctors seamlessly. Built with Node.js, Express.js, and MongoDB, the backend provides robust APIs to manage user authentication, doctor-patient appointments, and overall platform functionality.
 
-## Introduction
+Features
+RESTful APIs: Structured and well-documented REST APIs for seamless frontend integration.
 
-Welcome to the Medical Center Backend repository! This project serves as the backend for a comprehensive medical center management system designed to streamline various aspects of managing a medical facility. The backend is built using Node.js, Express.js, and MongoDB, providing APIs for managing appointments, patient records, staff information, billing, and more.
+MongoDB Integration: Efficient and scalable data handling using MongoDB with Mongoose.
 
-## Features
+Authentication & Authorization: Secure JWT-based login system for both doctors and patients.
 
-- **RESTful APIs:** Provide a set of RESTful APIs for interacting with the medical center data.
-- **Database Integration:** Integrates with MongoDB to store and manage medical center data efficiently.
-- **Authentication and Authorization:** Implements secure authentication and authorization mechanisms for accessing and managing medical center resources.
-- **Data Validation:** Enforces data validation to ensure the integrity and consistency of medical center data.
-- **Error Handling:** Implements error handling to provide meaningful error messages and responses.
+Appointment Management: Enables booking, viewing, and managing appointments by role.
 
-## Installation
+Error Handling: Consistent error responses and structured logging for smooth debugging.
 
-To run the Medical Center Backend locally, follow these steps:
+Installation
+To run the MindEase Backend locally:
 
-1. Clone this repository: `git clone https://github.com/Hyemee1021/medical-center-backend.git`
-2. Navigate to the project directory: `cd medical-center-backend`
-3. Install dependencies: `npm install`
-4. Set up environment variables: Create a `.env` file and configure necessary environment variables (e.g., MongoDB connection URI, JWT secret).
-5. Start the server: `npm start`
+Clone the repository:
+git clone https://github.com/dinesh21o9/MindEase-Backend.git
 
-## Usage
+Navigate to the project folder:
+cd MindEase-Backend
 
-After following the installation steps, the backend server will be running on the specified port. You can now make requests to the API endpoints to interact with the medical center data.
+Install dependencies:
+npm install
 
-## Contributing
+Create a .env file and add the required environment variables:
 
-Contributions are welcome! If you'd like to contribute to this project, please follow these guidelines:
+PORT=5000
 
-1. Fork the repository.
-2. Create your feature branch: `git checkout -b feature-name`.
-3. Commit your changes: `git commit -am 'Add some feature'`.
-4. Push to the branch: `git push origin feature-name`.
-5. Submit a pull request.
+MONGO_URI=your_mongodb_uri
 
-## License
+JWT_SECRET=your_jwt_secret
 
+Start the development server:
+npm run dev
+
+Usage
+Once the server is running, API endpoints will be available on http://localhost:5000. Use tools like Postman or connect with your frontend to test functionalities like:
+
+User and Doctor Login/Registration
+
+Booking Appointments
+
+Viewing Appointments by Role
+
+Protected Routes with JWT
+
+Contributing
+Contributions are always welcome! Here's how to contribute:
+
+Fork the repository.
+
+Create your feature branch:
+git checkout -b feature/your-feature-name
+
+Commit your changes:
+git commit -m "Add your message"
+
+Push the changes:
+git push origin feature/your-feature-name
+
+Open a pull request.
+
+License
 This project is licensed under the MIT License.
