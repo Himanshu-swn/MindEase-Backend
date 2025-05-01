@@ -16,6 +16,8 @@ import doctorRoute from "./Routes/doctor.js";
 import reviewRoute from "./Routes/review.js";
 import bookingRoute from "./Routes/booking.js";
 import Booking from "./models/Booking.js"; // Import Booking model
+import DoctorSchema from "./models/DoctorSchema.js";
+import UserSchema from "./models/UserSchema.js";
 // import meetingRoute from "./Routes/meeting.js"; // (optional if you modularize meetings)
 
 dotenv.config();
@@ -89,13 +91,21 @@ app.post("/meetings", async (req, res) => {
   });
 
   try {
-    // Store in DB
+    const doc = await DoctorSchema.findById(doctorId);
+    const pat = await UserSchema.findById(userId);
+
+    if (!doc || !pat) {
+      return res.status(404).json({ message: "Doctor or User not found" });
+    }
+
     const booking = new Booking({
       meetingId,
       doctor: doctorId,
       user: userId,
-      date,
-      time,
+      doctorName: doc.name,
+      userName: pat.name,
+      date: date.trim(),
+      time: time.trim(),
     });
 
     await booking.save();
@@ -105,8 +115,6 @@ app.post("/meetings", async (req, res) => {
     console.error("Error saving booking:", error);
     return res.status(500).json({ message: "Failed to create booking" });
   }
-
-  return res.status(201).json({ meetingId });
 });
 
 // Meeting Existence Check Route
@@ -141,7 +149,7 @@ io.on("connection", (socket) => {
     if (meetings.has(meetingId)) {
       const meeting = meetings.get(meetingId);
       if (!meeting.participants.includes(userId)) {
-        meeting.participants.push(userId);  // ✅ Only add if not already there
+        meeting.participants.push(userId); // ✅ Only add if not already there
       }
     }
 
@@ -151,12 +159,17 @@ io.on("connection", (socket) => {
 
       if (meetings.has(meetingId)) {
         const meeting = meetings.get(meetingId);
-        meeting.participants = meeting.participants.filter((id) => id !== userId);
+        meeting.participants = meeting.participants.filter(
+          (id) => id !== userId
+        );
 
         // Clean up empty meetings
         if (meeting.participants.length === 0) {
           setTimeout(() => {
-            if (meetings.has(meetingId) && meetings.get(meetingId).participants.length === 0) {
+            if (
+              meetings.has(meetingId) &&
+              meetings.get(meetingId).participants.length === 0
+            ) {
               meetings.delete(meetingId);
               console.log(`Meeting ${meetingId} removed due to 2 days of inactivity`);
             }
